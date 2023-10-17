@@ -3,32 +3,37 @@ import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
   
 const App = () => { 
     const [user, setUser] = useState('');
+    const [latitude,setLatitude] = useState(0);
+    const [longitude, setLongitude] = useState(0);
   
     useEffect(() => { 
   
         //Implementing the setInterval method
         const interval = setInterval(() => { 
             const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0,
+              enableHighAccuracy: true,
+              timeout: 5000,
+              maximumAge: 0,
             };
             
             function success(pos) {
-            const crd = pos.coords;
-            
-            console.log("Your current position is:");
-            console.log(`Latitude : ${crd.latitude}`);
-            console.log(`Longitude: ${crd.longitude}`);
-            console.log(`More or less ${crd.accuracy} meters.`);
+              const crd = pos.coords;
+              
+              // console.log("Your current position is:");
+              // console.log(`Latitude : ${crd.latitude}`);
+              // console.log(`Longitude: ${crd.longitude}`);
+              // console.log(`More or less ${crd.accuracy} meters.`);
+
+              setLatitude(crd.latitude);
+              setLongitude(crd.longitude); 
             }
             
             function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
+              console.warn(`ERROR(${err.code}): ${err.message}`);
             }
             
-            navigator.geolocation.getCurrentPosition(success, error, options);              
-        }, 10000); 
+            navigator.geolocation.getCurrentPosition(success, error, options);             
+        }, 2000); 
   
         //Clearing the interval 
         return () => clearInterval(interval); 
@@ -168,7 +173,7 @@ const App = () => {
               </div>
               <div style={{backgroundColor: 'white'}}>
                 <GoogleMap mapContainerStyle={{height: '75%'}} onLoad={onLoad} zoom={17} center={{ lat: -6.889547, lng: 107.610360 }}>
-                          <MarkerF position={{ lat: -6.889547, lng: 107.610360 }} />
+                          <MarkerF position={{ lat: latitude, lng: longitude }} />
                 </GoogleMap>
               </div>
               <div style={{fontSize: '70px',boxShadow: '0px 10px 10px 15px #888888', height: '65vh', backgroundColor: '#FF4F4F', top: '70%', position: "absolute", borderTopLeftRadius: '20px',borderTopRightRadius: '20px', width: '100%'}}>
