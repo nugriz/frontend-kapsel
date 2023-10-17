@@ -1,4 +1,3 @@
-/* global google */
 import React, { useState, useEffect } from 'react'; 
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
   
@@ -38,7 +37,6 @@ const App = () => {
     // Login Func
     const [errorMessages, setErrorMessages] = useState({});
     const [isSubmitted, setIsSubmitted] = useState(false);
-    //const [isSubmitted, setIsSubmitted] = useState(true);
 
     // User Login info
 
@@ -52,21 +50,6 @@ const App = () => {
         nama: 'Geo Perdana S.'
       }
     ]
-
-    // const database = [
-    //     {
-    //     username: "user1",
-    //     password: "pass1"
-    //     },
-    //     {
-    //         username: "admin",
-    //         password: "admin"
-    //         },
-    //     {
-    //     username: "user2",
-    //     password: "pass2"
-    //     }
-    // ];
 
     const errors = {
         uname: "invalid nim",
@@ -157,105 +140,52 @@ const App = () => {
     )
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyCxcV8F2YVP9WCIlpCF-aQCIOHCgx4pqUs',
-      });
-      const markers = [
-        { lat: 18.5209, lng: 73.8537 },
-        { lat: 18.5314, lng: 73.8446 },
-        { lat: 18.5642, lng: 73.7769 },
-      ];
+      googleMapsApiKey: 'AIzaSyCxcV8F2YVP9WCIlpCF-aQCIOHCgx4pqUs',
+    });
+
+    const markers = [
+      { lat: 18.5209, lng: 73.8537 },
+      { lat: 18.5314, lng: 73.8446 },
+      { lat: 18.5642, lng: 73.7769 },
+    ];
     
-      const onLoad = (map) => {
-        const bounds = new window.google.maps.LatLngBounds();
-        markers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
-        map.fitBounds(bounds);
-      };
-
-    // styling
-    const table = {
-      borderCollapse: 'collapse',
-      margin: '25px 0',
-      fontSize: '0.9em',
-      fontFamily: 'Rubik sans-serif',
-      minWidth: '400px',
-      boxShadow: '0 0 20px rgba(0, 0, 0, 0.15)',
-      backgroundColor: '#009879',
-      color: '#ffffff',
-      textAlign: 'left',
-      fontStyle: 'normal',
-      fontVariantCaps: 'normal',
-      fontVariantEastAsian: 'normal',
-      fontVariantLigatures: 'normal',
-      fontVariantNumeric: 'normal',
-      fontWeight: '1000'
-    }
-
-    const table2 = {
-      backgroundColor: '#FF4F4F',
-      color: '#ffffff',
-      textAlign: 'left'
-    }
+    const onLoad = (map) => {
+      const bounds = new window.google.maps.LatLngBounds();
+      markers?.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+      map.fitBounds(bounds);
+    };
 
     const quests = ['ayo jalan-jalan!', 'ayo ngampus!', 'ayo olahraga!']
 
-
-    if (false) {
-        while (!isSubmitted) {
-            return <div className="app">
-                        <div className="login-form">
-                        <div className="title">Sign In</div>
-                        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
-                        </div>
-                    </div>
-        }
-    } else {
-        if (user=='admin') {
-            console.log('admin')
-            return (
-                <div className="Apps" style={{width: '100vw', height: '100vh'}}>
-                  {!isLoaded ? (
-                    <h1>Loading...</h1>
-                  ) : (
-                    <GoogleMap mapContainerStyle={{height: '100%'}} onLoad={onLoad}>
-                      {markers.map(({ lat, lng }) => (
-                        <MarkerF position={{ lat, lng }} />
-                      ))}
-                    </GoogleMap>
-                  )}
-                </div>
-              );
-        } else {
-            return <div style={{backgroundColor: '#FF4F4F'}}>
-                    <div style={{textAlign: 'center', boxShadow: '2px 2px 6px 2px #888888', backgroundColor: '#E0352E', top: '10%', left: '5%', borderRadius: '25em', zIndex: '1', position: 'fixed', width: '90%', height: "10vh"}}>
-                      {isSubmitted ?
-                      <h3 style={{color: 'white'}}>{user}
-                        <div style={{boxShadow: '1px 1px 1px 1px gold', borderRadius: '8em',position: 'fixed', width: '20%', height: '8%', background: 'white', top: '11%', left: '73%'}}>
-                          <h5 style={{color: '#E0352E', position: 'fixed', top: '7%', right: '13%'}}>XP</h5>
-                          <h5 style={{color: "gold"}}>100</h5>
-                        </div>
-                      </h3> : renderForm }
-                    </div>
-                    <div style={{backgroundColor: '#009879'}}>
-                      <GoogleMap mapContainerStyle={{height: '75%'}} onLoad={onLoad} zoom={17} center={{ lat: -6.889547, lng: 107.610360 }}>
-                                <MarkerF position={{ lat: -6.889547, lng: 107.610360 }} />
-                      </GoogleMap>
-                    </div>
-                    <div style={{boxShadow: '0px 10px 10px 15px #888888', height: '65vh', backgroundColor: '#FF4F4F', top: '70%', position: "absolute", borderTopLeftRadius: '20px',borderTopRightRadius: '20px', width: '100%'}}>
-                    <div style={{boxShadow: '5px 10px 10px 5px', margin: '10%', borderRadius: '20px', backgroundColor: 'white', height: '45vh'}}>
-                        <div style={{height: '10px'}}></div>
-                        <h3 style={{textAlign: 'center', margin: 'auto'}}>Quest & Mission</h3>
-                        {quests.map((quest)=>(
-                          <div style={{textAlign: 'center'}}>
-                            <div style={{height: '10px'}}></div>
-                            <button style={{borderColor: 'white',boxShadow: '2px 2px 2px 2px #888888',backgroundColor: "white", borderRadius: '10px', width:'70%'}} onClick={console.log('')}><h4>{quest}</h4></button>
-                          </div>
-                        ))}
-                      </div>
-                      <div style={{paddingTop: '10%', backgroundColor: 'black', height: "10vh", color: 'white', textAlign: 'center'}}> Made with love by Kelompok 4</div>
+      return (!isLoaded ? <h1>loading</h1> : <div style={{backgroundColor: '#FF4F4F'}}>
+              <div style={{textAlign: 'center', boxShadow: '2px 2px 6px 2px #888888', backgroundColor: '#E0352E', top: '10%', left: '5%', borderRadius: '25em', zIndex: '1', position: 'fixed', width: '90%', height: "10vh"}}>
+                {isSubmitted ?
+                <h3 style={{color: 'white'}}>{user}
+                  <div style={{boxShadow: '1px 1px 1px 1px gold', borderRadius: '8em',position: 'fixed', width: '20%', height: '8%', background: 'white', top: '11%', left: '73%'}}>
+                    <h5 style={{color: '#E0352E', position: 'fixed', top: '7%', right: '13%'}}>XP</h5>
+                    <h5 style={{color: "gold"}}>100</h5>
                   </div>
-        </div>;    
-        }   
-    }
-} 
+                </h3> : renderForm }
+              </div>
+              <div style={{backgroundColor: 'white'}}>
+                <GoogleMap mapContainerStyle={{height: '75%'}} onLoad={onLoad} zoom={17} center={{ lat: -6.889547, lng: 107.610360 }}>
+                          <MarkerF position={{ lat: -6.889547, lng: 107.610360 }} />
+                </GoogleMap>
+              </div>
+              <div style={{boxShadow: '0px 10px 10px 15px #888888', height: '65vh', backgroundColor: '#FF4F4F', top: '70%', position: "absolute", borderTopLeftRadius: '20px',borderTopRightRadius: '20px', width: '100%'}}>
+              <div style={{boxShadow: '5px 10px 10px 5px', margin: '10%', borderRadius: '20px', backgroundColor: 'white', height: '45vh'}}>
+                  <div style={{height: '10px'}}></div>
+                  <h3 style={{textAlign: 'center', margin: 'auto'}}>Quest & Mission</h3>
+                  {quests.map((quest)=>(
+                    <div style={{textAlign: 'center'}}>
+                      <div style={{height: '10px'}}></div>
+                      <button style={{borderColor: 'white',boxShadow: '2px 2px 2px 2px #888888',backgroundColor: "white", borderRadius: '10px', width:'70%'}} onClick={console.log('')}><h4>{quest}</h4></button>
+                    </div>
+                  ))}
+                </div>
+                <div style={{paddingTop: '10%', backgroundColor: 'black', height: "10vh", color: 'white', textAlign: 'center'}}> Made with love by Kelompok 4</div>
+            </div>
+        </div>)    
+        }
   
 export default App;
