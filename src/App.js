@@ -5,6 +5,7 @@ const App = () => {
     const [user, setUser] = useState('');
     const [latitude,setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
+    const [ongoing, setOngoing] = useState(false);
   
     useEffect(() => { 
   
@@ -161,6 +162,14 @@ const App = () => {
 
     const quests = ['ayo jalan-jalan!', 'ayo ngampus!', 'ayo olahraga!']
 
+    const changecolor = (event) => {
+      setOngoing(true);
+    }
+
+    const selesai = (event) => {
+      setOngoing(false);
+    }
+
       return (!isLoaded ? <h1>loading</h1> : <div style={{backgroundColor: '#FF4F4F'}}>
               <div style={{fontSize: '50px',textAlign: 'center', boxShadow: '2px 2px 6px 2px #888888', backgroundColor: '#E0352E', top: '10%', left: '5%', borderRadius: '25em', zIndex: '1', position: 'fixed', width: '90%', height: "10vh"}}>
                 {isSubmitted ?
@@ -172,7 +181,7 @@ const App = () => {
                 </h3> : renderForm }
               </div>
               <div style={{backgroundColor: 'white'}}>
-                <GoogleMap mapContainerStyle={{height: '75%'}} onLoad={onLoad} zoom={17} center={{ lat: -6.889547, lng: 107.610360 }}>
+                <GoogleMap mapContainerStyle={{height: '75%'}} onLoad={onLoad} zoom={20} center={{ lat: latitude, lng: longitude }}>
                           <MarkerF position={{ lat: latitude, lng: longitude }} />
                 </GoogleMap>
               </div>
@@ -180,12 +189,12 @@ const App = () => {
               <div style={{boxShadow: '5px 10px 10px 5px', margin: '10%', borderRadius: '20px', backgroundColor: 'white', height: '45vh'}}>
                   <div style={{height: '10px'}}></div>
                   <h3 style={{textAlign: 'center', margin: 'auto'}}>Quest & Mission</h3>
-                  {quests.map((quest)=>(
+                  {ongoing ? <button style={{fontSize: '50px',borderColor: 'white',boxShadow: '2px 2px 2px 2px #888888',backgroundColor: "red", borderRadius: '200px', width:'50%', marginLeft: '25%', marginTop: '10%'}} onClick={selesai}><h2>stop</h2></button> : (quests.map((quest)=>(
                     <div style={{textAlign: 'center'}}>
                       <div style={{height: '10px'}}></div>
-                      <button style={{fontSize: '50px',borderColor: 'white',boxShadow: '2px 2px 2px 2px #888888',backgroundColor: "white", borderRadius: '10px', width:'70%'}} onClick={console.log('')}><h4>{quest}</h4></button>
+                      <button style={{fontSize: '50px',borderColor: 'white',boxShadow: '2px 2px 2px 2px #888888',backgroundColor: "white", borderRadius: '10px', width:'70%'}} onClick={changecolor}><h4>{quest}</h4></button>
                     </div>
-                  ))}
+                  )))}
                 </div>
                 <div style={{paddingTop: '10%', backgroundColor: 'black', height: "10vh", color: 'white', textAlign: 'center'}}> Made with love by Kelompok 4</div>
             </div>
