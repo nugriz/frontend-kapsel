@@ -130,10 +130,9 @@ const App = () => {
       <div className='form'>
         <form onSubmit={handleSubmit}>
           <div style={{borderColor: 'white'}}>
-            <label style={{color: "white", fontWeight: '500'}}>NIM</label>
-            <input style={{borderColor: 'white',borderRadius: "20em", marginTop: '7%', marginLeft: "1%"}} type='text' name="nim" required />
+            <input placeholder='NIM' style={{width: '50%',height: '50%',textAlign: 'center',fontSize: '50px',borderColor: 'white',borderRadius: "20em", marginTop: '7%', marginLeft: "1%"}} type='text' name="nim" required />
             {renderErrorMessage('nim')}
-            <input style={{background: "white",borderColor: 'white', marginLeft: "2%", borderRadius: "20em"}} type='submit' />
+            <input style={{width: '20%',height: '50%',color: 'grey',background: "white",borderColor: 'white',fontSize: '50px', marginLeft: "2%", borderRadius: "20em"}} type='submit' />
           </div>
         </form>
       </div>
@@ -158,11 +157,11 @@ const App = () => {
     const quests = ['ayo jalan-jalan!', 'ayo ngampus!', 'ayo olahraga!']
 
       return (!isLoaded ? <h1>loading</h1> : <div style={{backgroundColor: '#FF4F4F'}}>
-              <div style={{textAlign: 'center', boxShadow: '2px 2px 6px 2px #888888', backgroundColor: '#E0352E', top: '10%', left: '5%', borderRadius: '25em', zIndex: '1', position: 'fixed', width: '90%', height: "10vh"}}>
+              <div style={{fontSize: '50px',textAlign: 'center', boxShadow: '2px 2px 6px 2px #888888', backgroundColor: '#E0352E', top: '10%', left: '5%', borderRadius: '25em', zIndex: '1', position: 'fixed', width: '90%', height: "10vh"}}>
                 {isSubmitted ?
                 <h3 style={{color: 'white'}}>{user}
                   <div style={{boxShadow: '1px 1px 1px 1px gold', borderRadius: '8em',position: 'fixed', width: '20%', height: '8%', background: 'white', top: '11%', left: '73%'}}>
-                    <h5 style={{color: '#E0352E', position: 'fixed', top: '7%', right: '13%'}}>XP</h5>
+                    <h5 style={{color: '#E0352E', position: 'fixed', top: '8%', right: '13%'}}>XP</h5>
                     <h5 style={{color: "gold"}}>100</h5>
                   </div>
                 </h3> : renderForm }
@@ -172,14 +171,14 @@ const App = () => {
                           <MarkerF position={{ lat: -6.889547, lng: 107.610360 }} />
                 </GoogleMap>
               </div>
-              <div style={{boxShadow: '0px 10px 10px 15px #888888', height: '65vh', backgroundColor: '#FF4F4F', top: '70%', position: "absolute", borderTopLeftRadius: '20px',borderTopRightRadius: '20px', width: '100%'}}>
+              <div style={{fontSize: '70px',boxShadow: '0px 10px 10px 15px #888888', height: '65vh', backgroundColor: '#FF4F4F', top: '70%', position: "absolute", borderTopLeftRadius: '20px',borderTopRightRadius: '20px', width: '100%'}}>
               <div style={{boxShadow: '5px 10px 10px 5px', margin: '10%', borderRadius: '20px', backgroundColor: 'white', height: '45vh'}}>
                   <div style={{height: '10px'}}></div>
                   <h3 style={{textAlign: 'center', margin: 'auto'}}>Quest & Mission</h3>
                   {quests.map((quest)=>(
                     <div style={{textAlign: 'center'}}>
                       <div style={{height: '10px'}}></div>
-                      <button style={{borderColor: 'white',boxShadow: '2px 2px 2px 2px #888888',backgroundColor: "white", borderRadius: '10px', width:'70%'}} onClick={console.log('')}><h4>{quest}</h4></button>
+                      <button style={{fontSize: '50px',borderColor: 'white',boxShadow: '2px 2px 2px 2px #888888',backgroundColor: "white", borderRadius: '10px', width:'70%'}} onClick={console.log('')}><h4>{quest}</h4></button>
                     </div>
                   ))}
                 </div>
