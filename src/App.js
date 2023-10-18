@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'; 
+import axios from 'axios';
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
   
 const App = () => { 
     const [user, setUser] = useState('');
+    const [nim, setNim] = useState('');
     const [latitude,setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [ongoing, setOngoing] = useState(false);
@@ -19,22 +21,35 @@ const App = () => {
             
             function success(pos) {
               const crd = pos.coords;
-              
-              // console.log("Your current position is:");
-              // console.log(`Latitude : ${crd.latitude}`);
-              // console.log(`Longitude: ${crd.longitude}`);
-              // console.log(`More or less ${crd.accuracy} meters.`);
 
               setLatitude(crd.latitude);
               setLongitude(crd.longitude); 
+
+              // const loc = {
+              //   nim: nim,
+              //   lat: latitude,
+              //   lng: longitude
+              // }            
             }
             
             function error(err) {
               console.warn(`ERROR(${err.code}): ${err.message}`);
             }
             
-            navigator.geolocation.getCurrentPosition(success, error, options);             
-        }, 2000); 
+            navigator.geolocation.getCurrentPosition(success, error, options);
+            
+            axios.post('http://localhost:3000/locations', {
+                nim: nim,
+                lat: latitude,
+                lng: longitude
+              })
+              .then(function (response) {
+                console.log(response);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+        }, 3000); 
   
         //Clearing the interval 
         return () => clearInterval(interval); 
@@ -75,6 +90,7 @@ const App = () => {
         if (userData) {
           setIsSubmitted(true);
           setUser(userData.nama)
+          setNim(nim.value)
         } else {
         // Username not found
         setErrorMessages({ name: "nim", message: errors.uname });
