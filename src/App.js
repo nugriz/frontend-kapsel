@@ -23,7 +23,8 @@ const App = () => {
               const crd = pos.coords;
 
               setLatitude(crd.latitude);
-              setLongitude(crd.longitude); 
+              setLongitude(crd.longitude);
+              // 
 
               // const loc = {
               //   nim: nim,
