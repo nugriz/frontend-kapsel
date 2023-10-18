@@ -4,10 +4,11 @@ import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
   
 const App = () => { 
     const [user, setUser] = useState('');
-    const [nim, setNim] = useState('');
     const [latitude,setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     const [ongoing, setOngoing] = useState(false);
+    const [nim, setNim] = useState('');
+    const [ip, setIp] = useState('');
   
     useEffect(() => { 
   
@@ -30,7 +31,36 @@ const App = () => {
               //   nim: nim,
               //   lat: latitude,
               //   lng: longitude
-              // }            
+              // }
+              const getData = async () => {
+                const res = await axios.get("https://api.ipify.org/?format=json");
+                console.log(res.data.ip);
+                axios.post('http://localhost:3000/locations', {
+                  nim: res.data.ip,
+                  lat: crd.latitude,
+                  lng: crd.longitude
+                })
+                .then(function (response) {
+                  //console.log(response);
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });  
+              };
+
+              getData();
+
+              // axios.post('http://localhost:3000/locations', {
+              //   nim: String(getData()),
+              //   lat: crd.latitude,
+              //   lng: crd.longitude
+              // })
+              // .then(function (response) {
+              //   //console.log(response);
+              // })
+              // .catch(function (error) {
+              //   console.log(error);
+              // });         
             }
             
             function error(err) {
@@ -39,17 +69,6 @@ const App = () => {
             
             navigator.geolocation.getCurrentPosition(success, error, options);
             
-            axios.post('http://localhost:3000/locations', {
-                nim: nim,
-                lat: latitude,
-                lng: longitude
-              })
-              .then(function (response) {
-                console.log(response);
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
         }, 3000); 
   
         //Clearing the interval 
@@ -70,8 +89,50 @@ const App = () => {
       {
         nim: '18119009',
         nama: 'Geo Perdana S.'
-      }
-    ]
+      },
+      {
+
+        nama: 'Putra Rafii Pradana Santoso',
+        nim: '18119036'
+      },{
+        nama: 'Syaghina Maitsa Gunawan',
+        nim: '18120005'
+      },{
+        nama: 'Steven Nathanael Wijaya',
+        nim: '18120009'
+      },{
+        nama:'Muhammad Aulia Azhar',
+        nim:'18120015'
+    },{
+        nama: 'Hassan Fachrurrozi',
+        nim:'18120017'
+    },{
+        nama: 'Edbert',
+        nim:'18120023'
+    },{
+        nama: 'Agil Fuad Gumelar',
+        nim: '18120024'
+    },{
+        nama: 'Razan Ar-Rizqullah',
+        nim:'18120041'
+    },{
+
+       nama: 'Akromu Dzikri',
+        nim: '18120043'
+    },{
+        nama: 'Rafael Sinjunatha Wulangsih',
+        nim: '18120048'
+    },{
+        nama: 'Refael Arifin',
+        nim: '18120057'
+    },{
+        nama: 'Anggoro Maliky',
+        nim: '18120059'
+    },{
+        nama: 'Eka Melinda Rahmawati',
+        nim: '18120075'
+    }
+            ]
 
     const errors = {
         uname: "invalid nim",
@@ -91,7 +152,7 @@ const App = () => {
         if (userData) {
           setIsSubmitted(true);
           setUser(userData.nama)
-          setNim(nim.value)
+          setNim(userData.nim)
         } else {
         // Username not found
         setErrorMessages({ name: "nim", message: errors.uname });
